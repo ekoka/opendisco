@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
+from sqlalchemy import text
 
 from app.settings import settings
+from app.db import engine
 #from app.api.main import api_router
+
+with engine.connect() as conn:
+    result = conn.execute(text("select 'hello from postgres'"))
+    print(result.all())
 
 def custom_generate_unique_id(route: APIRoute) -> str:
     return f"{route.tags[0]}-{route.name}"
