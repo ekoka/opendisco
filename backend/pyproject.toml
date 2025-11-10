@@ -1,10 +1,12 @@
 [project]
-name = "opendisco"
+name = "app"
 version = "0.1.0"
-description = "Add your description here"
+description = "API for OpenDisco"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.120.4",
+    "psycopg[binary]>=3.2.12",
     "pydantic-settings>=2.11.0",
+    "sqlalchemy>=2.0.44",
 ]
