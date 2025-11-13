@@ -1,5 +1,5 @@
-from .bootstrapper import app 
+from .bootstrap import create_app, db_create, db_drop 
 
-@app.get("/test/{msg}")
-async def test(msg: str):
-    return {"test": msg}
+app = create_app()
+#db_create()
+db_drop()

@@ -5,12 +5,12 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-class Admin:
-    __tablename__ = "admin"
+class User:
+    __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    email: Mapped[str] = mapped_column(String, nullable=False)
+    email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
     password: Mapped[str] = mapped_column(String, nullable=False)
-    firstname: Mapped[str] | None
-    lastname: Mapped[str] | None
+    role: Mapped[str] = mapped_column(String, nullable=False)
+    fullname: Mapped[str] | None
 
