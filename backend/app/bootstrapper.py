@@ -5,11 +5,12 @@ from sqlalchemy import text
 
 from app.settings import settings
 from app.db import engine
+from app.dal import metadata
+
 #from app.api.main import api_router
 
-with engine.connect() as conn:
-    result = conn.execute(text("select 'hello from postgres'"))
-    print(result.all())
+metadata.create_all(engine)
+#metadata.drop_all(engine)
 
 def custom_generate_unique_id(route: APIRoute) -> str:
     return f"{route.tags[0]}-{route.name}"
