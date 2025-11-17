@@ -5,12 +5,15 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-class User:
+from .base import Base
+
+
+class User(Base):
     __tablename__ = "user"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
-    password: Mapped[str] = mapped_column(String, nullable=False)
-    role: Mapped[str] = mapped_column(String, nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    email: Mapped[str] = mapped_column(String, unique=True, index=True)
+    password: Mapped[str] = mapped_column(String)
+    role: Mapped[str] = mapped_column(String, insert_default='basic', init=False)
     fullname: Mapped[str] | None
 

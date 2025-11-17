@@ -1,5 +1,3 @@
-from .bootstrap import create_app, db_create, db_drop 
+from .bootstrap import create_app
 
 app = create_app()
-#db_create()
-db_drop()

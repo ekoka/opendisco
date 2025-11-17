@@ -7,7 +7,7 @@ from fastapi import APIRouter, HTTPException
 #from app.api.deps import CurrentUser, SessionDep
 #from app.dal import Item, ItemCreate, ItemPublic, ItemsPublic, ItemUpdate, Message
 
-router = APIRouter(prefix="/adm/account", tags=["account"])
+router = APIRouter(prefix="/accounts", tags=["Accounts"])
 
 
 @router.get("/")
