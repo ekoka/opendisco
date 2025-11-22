@@ -1,14 +1,11 @@
 import datetime as dt
 from typing import Any, TypeAlias, Callable
-from dataclass import dataclass
+from dataclasses import dataclass
 
 import jwt
 import argon2
 
-
-from app.core.config import settings
-
-
+from app.settings import settings
 from app.utils.string import unicode_normalizer
 
 ALGORITHM = "HS256"
@@ -36,7 +33,7 @@ class LoginError(Exception):
 
 PasswordUpdaterCallback: TypeAlias = Callable[[str|bytes], bool]
 def verify_password(
-        hashed_pw str|bytes, 
+        hashed_pw: str|bytes, 
         plain_pw: str|bytes,
         update_pw_cb: PasswordUpdaterCallback=None
     ) -> bool:
@@ -50,7 +47,7 @@ def verify_password(
     try:
         pw_hasher.verify(hashed_pw, password)
     except exc.VerifyMismatchError:
-        raise LoginError(status_code=400, "Password mismatch")
+        raise LoginError(status_code=400, detail="Password mismatch")
     except (exc.VerificationError, exc.InvalidHashError) as e:
         raise e
     if pw_hasher.check_needs_rehash(hashed_pw):

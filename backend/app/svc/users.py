@@ -10,6 +10,7 @@ from app.val.users import (
 )
 from app.dal.user import User
 from app.db import SessionFactory
+from app.utils import security as sec
 
 from .errors import ServiceError
 
@@ -22,6 +23,7 @@ async def create_user(Session: SessionFactory, data: UserCreate):
         )
     uid = None
     async with Session() as session:
+        data.password = sec.hash_password(data.password)
         m = data.model_dump()
         u = User(**m)
         session.add(u)
