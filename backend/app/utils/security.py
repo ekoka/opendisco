@@ -24,7 +24,7 @@ def hash_password(plain_pw: bytes|str) -> str:
         plain_pw = plain_pw.encode('utf-8')
     # no need to explicitly salt, done automatically.
     hashed_pw = pw_hasher.hash(plain_pw)
-    return hashed_pw.decode('utf-8')
+    return hashed_pw
 
 @dataclass
 class LoginError(Exception):
@@ -50,9 +50,9 @@ def verify_password(
         raise LoginError(status_code=400, detail="Password mismatch")
     except (exc.VerificationError, exc.InvalidHashError) as e:
         raise e
+
     if pw_hasher.check_needs_rehash(hashed_pw):
         if update_pw_cb is None:
             return False
         return update_pw_cb(pw_hasher.hash(plain_pw))
     return True
-

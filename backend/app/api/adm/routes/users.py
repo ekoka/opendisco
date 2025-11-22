@@ -32,6 +32,7 @@ async def run_or_raise(task, status_code: int = 400, detail: str = "Malformed da
             detail=e.detail if e.detail else detail,
         )
     except:
+        raise
         # TODO: Log error
         raise HTTPException(
             status_code=500,
@@ -57,7 +58,7 @@ async def post_user(*, Session: SessionDep, user_in: UserCreate) -> Any:
     #        subject=email_data.subject,
     #        html_content=email_data.html_content,
     #    )
-    return user_id
+    return UserPublic(id=user_id)
 
 #@router.post(
 #    "/", dependencies=[Depends(get_current_active_superuser)], response_model=UserPublic

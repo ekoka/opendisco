@@ -45,7 +45,7 @@ def unicode_normalizer(source: str, param: str="value")-> str:
     #   - strip 'commonly mapped to nothing' chars (stringprep B.1)
     USPACE = " "
     data = ''.join(
-        USPACE if sg.in_table_c12(c) else c
+        USPACE if sp.in_table_c12(c) else c
         for c in source if not sp.in_table_b1(c)
     )
 
@@ -75,8 +75,8 @@ def unicode_normalizer(source: str, param: str="value")-> str:
     # check for prohibited output - stringprep tables A.1, B.1, C.1.2, C.2 - C.9
     for c in data:
         # check for chars mapping stage should have removed
-        assert not in_table_b1(c), "failed to strip B.1 in mapping stage"
-        assert not in_table_c12(c), "failed to replace C.1.2 in mapping stage"
+        assert not sp.in_table_b1(c), "failed to strip B.1 in mapping stage"
+        assert not sp.in_table_c12(c), "failed to replace C.1.2 in mapping stage"
 
         # check for forbidden chars
         if sp.in_table_a1(c):

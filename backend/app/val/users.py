@@ -5,7 +5,9 @@ class UserCreate(BaseModel):
     password: str
     fullname: str
 
-class UserPublic(BaseModel): pass
+class UserPublic(BaseModel):
+    id: int
+
 class PasswordUpdate(BaseModel): pass
 class UserRegister(BaseModel): pass
 class UsersPublic(BaseModel): pass

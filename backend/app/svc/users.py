@@ -22,15 +22,13 @@ async def create_user(Session: SessionFactory, data: UserCreate):
             detail="A user with this email has already been registered in the system.",
         )
     uid = None
-    async with Session() as session:
+    async with Session(expire_on_commit=False) as session:
         data.password = sec.hash_password(data.password)
         m = data.model_dump()
         u = User(**m)
         session.add(u)
         await session.commit()
-        uid = u.id
-    return uid 
-
+    return u.id
 
 async def email_is_registered(Session: SessionFactory, email: str) -> bool:
     async with Session() as session:
